@@ -33,3 +33,13 @@ RUN export BOOST_DIR_NAME=boost_$(echo ${BOOST_VERSION} | sed -e 's/\./_/g') \
   && rm -rf ${BOOST_WORK_DIR}
 
 WORKDIR /
+
+# Install clang-format
+RUN apt update && apt install -y clang-format
+
+# Install cpplint
+RUN apt update && apt install -y python3-pip \
+  && python3 -m pip install cpplint
+
+# Install googletest
+RUN apt update && apt install -y libgtest-dev
