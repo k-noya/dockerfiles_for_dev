@@ -34,12 +34,22 @@ RUN export BOOST_DIR_NAME=boost_$(echo ${BOOST_VERSION} | sed -e 's/\./_/g') \
 
 WORKDIR /
 
-# Install clang-format
-RUN apt update && apt install -y clang-format
+# Install llvm-toolchain and clang-format
+ENV LLVM_VERSION=10
+RUN apt update \
+  && apt install -y software-properties-common \
+  && wget https://apt.llvm.org/llvm.sh \
+  && chmod +x llvm.sh \
+  && ./llvm.sh ${LLVM_VERSION} \
+  && apt update \
+  && apt install -y clang-format-${LLVM_VERSION} \
+  && ln -s /usr/bin/clang-format-${LLVM_VERSION} /usr/bin/clang-format
 
 # Install cpplint
-RUN apt update && apt install -y python3-pip \
+RUN apt update \
+  && apt install -y python3-pip \
   && python3 -m pip install cpplint
 
 # Install googletest
-RUN apt update && apt install -y libgtest-dev
+RUN apt update \
+  && apt install -y libgtest-dev
