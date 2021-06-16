@@ -21,7 +21,7 @@ ENV BOOST_INSTALL_DIR=/usr/local
 
 RUN export BOOST_DIR_NAME=boost_$(echo ${BOOST_VERSION} | sed -e 's/\./_/g') \
   && export BOOST_ARCHIVE_FILE=${BOOST_DIR_NAME}.tar.gz \
-  && export BOOST_SOURCE_URL=https://dl.bintray.com/boostorg/release/${BOOST_VERSION}/source/${BOOST_ARCHIVE_FILE} \
+  && export BOOST_SOURCE_URL=https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/${BOOST_ARCHIVE_FILE} \
   && wget -q ${BOOST_SOURCE_URL} \
   && tar zxf ${BOOST_ARCHIVE_FILE} \
   && cd ${BOOST_DIR_NAME} \
